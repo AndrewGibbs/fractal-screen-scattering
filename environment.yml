@@ -3,6 +3,12 @@ channels:
   - conda-forge
   - defaults
 dependencies:
-  - bempp-cl
-  - matplotlib
-prefix: /opt/anaconda3/envs/bempp3
+  - numba=0.53.1
+  - gmsh==4.6.0
+  - numpy=1.21.2
+  - plotly=5.3.1
+  - python=3.9.6
+  - scipy=1.7.1
+  - bempp-cl=0.2.4
+  - matplotlib=3.4.3
+  - meshio=5.0.0
