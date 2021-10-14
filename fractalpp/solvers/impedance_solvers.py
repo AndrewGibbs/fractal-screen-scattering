@@ -78,7 +78,7 @@ class imp_sol(impedance):
         rhs1 = bempp.api.GridFunction(self.L2_subspace, fun=data[0], dual_space=self.C1o_subspace)
         rhs2 = bempp.api.GridFunction(self.L2_subspace, fun=data[1], dual_space=self.L2_subspace)
 
-        (self.Neumann_solution, self.Dirichlet_solution), _ = bempp.api.linalg.gmres(A_rect, [rhs1, rhs2])
+        (self.Dirichlet_jump, self.Neumann_jump), _ = bempp.api.linalg.gmres(A_rect, [rhs1, rhs2])
 
     def get_data(self):
         g = self.get_g()
@@ -115,7 +115,7 @@ class new_imp_sol(impedance):
         rhs1 = bempp.api.GridFunction(self.L2_subspace, fun=data[0], dual_space=self.C1o_subspace)
         rhs2 = bempp.api.GridFunction(self.L2_subspace, fun=data[1], dual_space=self.L2_subspace)
 
-        (self.Neumann_solution, self.Dirichlet_solution), _ = bempp.api.linalg.gmres(A_rect, [rhs1, rhs2])
+        (self.Dirichlet_jump, self.Neumann_jump), _ = bempp.api.linalg.gmres(A_rect, [rhs1, rhs2])
 
     def get_data(self):
         g = self.get_g()
