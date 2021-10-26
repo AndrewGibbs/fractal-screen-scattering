@@ -7,12 +7,23 @@ def build_snowflake(prefratal_level, h_max=math.inf, scale = 1, apex_angle = mat
     (nodes_data, edges_nodes, tri_nodes, tri_edges, 
     tri_types) = get_koch_seed(scale = 1, apex_angle = math.pi/3, shift = np.array([0,0]))
 
+    init_h = get_h_max(tri_nodes,nodes_data)
+
+    final_max_h = init_h/(2**np.floor(prefratal_level/2)) # will halve every other j
+    # final_min_h = init_h/(3**prefratal_level)
+    extra_refinements = np.ceil(final_max_h/h_max)
+
+
     # first refine to desired prefractal level
     for j in range(prefratal_level):
         if np.mod(j,2) == 0:
             j_even = True # only refine along dashed lines and type 8s when j is even
         else:
-            j_even = False
+            if extra_refinements>0:
+                extra_refinements-=1
+                j_even = True
+            else:
+                j_even = False
 
         (tri_edges, tri_nodes, tri_types, edges_nodes, 
         nodes_data) =  subdiv_all(tri_edges, tri_nodes, tri_types, edges_nodes, nodes_data,
