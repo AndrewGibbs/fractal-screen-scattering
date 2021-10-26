@@ -1,4 +1,4 @@
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/AndrewGibbs/fractal-screen-scattering/HEAD?labpath=EG_Koch_impedance.ipynb)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/AndrewGibbs/fractal-screen-scattering/HEAD?labpath=EG_Koch.ipynb)
 
 ## fractalpp
 * A collection of codes for modelling acoustic and electro-magnetic scattering by fractal screens.
