@@ -19,11 +19,15 @@ def line(J,alpha=1/3):
         Y = X
     return Y
 
-def dust(J,M,alpha=1/3):
-    X = line(J, alpha)
-    Y = line(J, alpha)
+def dust(J,h_max=np.Inf,M=0,middle=1/3):
+    X = line(J, middle)
+    Y = line(J, middle)
     # now compute the meshwidth h
-    h=((1-alpha)/2)**(J+M)
+    if h_max<np.Inf:
+        h=h_max
+    else:
+        h=((1-middle)/2)**(J+M)
+
 
     S = []
     for x in X:

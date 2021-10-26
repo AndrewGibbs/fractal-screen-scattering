@@ -1,4 +1,4 @@
-import fractalpp.solvers.impedance_solvers, numpy
+import fractalpp.solvers.impedance_solvers, fractalpp.solvers.dirichlet_solvers, numpy
 
 class u_i:
     def __init__(self,k,incDir):

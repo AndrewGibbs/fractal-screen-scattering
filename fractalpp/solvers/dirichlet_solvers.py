@@ -1,14 +1,14 @@
 import numpy as np
 import bempp.api
 
-class dir_solve():
+class dir_sol():
     def __init__(self,grid,uinc):
         self.uinc = uinc
         self.piecewise_const_space = bempp.api.function_space(grid, "DP", 0)
         slp = bempp.api.operators.boundary.helmholtz.single_layer(self.piecewise_const_space, self.piecewise_const_space, self.piecewise_const_space, self.uinc.k)
         RHS_data = self.getRHS_data()
         grid_fun = bempp.api.GridFunction(self.piecewise_const_space, fun=RHS_data)
-        self.neumann_fun, _ = bempp.api.linalg.gmres(slp, grid_fun)
+        self.neumann_jump, _ = bempp.api.linalg.gmres(slp, grid_fun)
 
     def getRHS_data(self):
         k = self.uinc.k
@@ -19,5 +19,5 @@ class dir_solve():
         return RHS_data
 
     def u_s(self,points):
-        slp_pot = bempp.api.helmholtz_potential.single_layer(self.piecewise_const_space, points, self.uinc.k)
-        return  - slp_pot.evaluate(self.neumann_fun)
+        slp_pot = bempp.api.operators.potential.helmholtz.single_layer(self.piecewise_const_space, points, self.uinc.k)
+        return  - slp_pot.evaluate(self.neumann_jump)

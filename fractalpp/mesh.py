@@ -10,5 +10,5 @@ def koch(prefratal_level, h_max=math.inf, scale = 1, apex_angle = math.pi/3, shi
     # now use bempp to create the mesh
     return bempp.api.Grid(vertices, elements)
 
-def cantor(J,M=1,alpha=1/3):
-    return fractalpp.meshes.cantor.dust(J,M,alpha)
+def cantor(J,h_max=np.Inf,M=0,middle=1/3):
+    return fractalpp.meshes.cantor.dust(J,h_max,M,middle)

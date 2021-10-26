@@ -57,7 +57,7 @@ class impedance(object):
     def u_s(self,x):
         S_pot = bempp.api.operators.potential.helmholtz.single_layer(self.L2_subspace, x, self.k)
         D_pot = bempp.api.operators.potential.helmholtz.double_layer(self.C1o_subspace, x, self.k)
-        return D_pot.evaluate(self.Neumann_solution)-S_pot.evaluate(self.Dirichlet_solution)
+        return D_pot.evaluate(self.Dirichlet_jump)-S_pot.evaluate(self.Neumann_jump)
 
 
 class imp_sol(impedance):
