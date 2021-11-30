@@ -1,8 +1,8 @@
 import fractalpp.meshes.koch, fractalpp.meshes.cantor, math, bempp.api
 import numpy as np
 
-def koch(prefratal_level, h_max=math.inf, scale = 1, apex_angle = math.pi/3, shift = np.array([0,0])):
-    K_nodes,elements_pre_np = fractalpp.meshes.koch.build_snowflake(prefratal_level, h_max, scale, apex_angle, shift)
+def koch(prefratal_level, h_max=math.inf, scale = 1, apex_angle = math.pi/3, shift = np.array([0,0]), mid_refine=True):
+    K_nodes,elements_pre_np = fractalpp.meshes.koch.build_snowflake(prefratal_level, h_max, scale, apex_angle, shift, mid_refine)
     elements = np.transpose(elements_pre_np)
     #still need to embed in R^3 before mesh can be input into bempp mesh generator
     third_dim = np.zeros((len(K_nodes),1),dtype=np.float64)

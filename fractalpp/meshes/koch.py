@@ -1,17 +1,20 @@
 import numpy as np
 import math
 
-def build_snowflake(prefratal_level, h_max=math.inf, scale = 1, apex_angle = math.pi/3, shift = np.array([0,0])):
+def build_snowflake(prefratal_level, h_max=math.inf, scale = 1, apex_angle = math.pi/3, shift = np.array([0,0]), mid_refine=True):
 
     #get starting level one fractal
     (nodes_data, edges_nodes, tri_nodes, tri_edges, 
-    tri_types) = get_koch_seed(scale = 1, apex_angle = math.pi/3, shift = np.array([0,0]))
+    tri_types) = get_koch_seed(scale = 1, apex_angle = math.pi/3, shift = shift)
 
     init_h = get_h_max(tri_nodes,nodes_data)
 
     final_max_h = init_h/(2**np.floor(prefratal_level/2)) # will halve every other j
     # final_min_h = init_h/(3**prefratal_level)
-    extra_refinements = np.ceil(final_max_h/h_max)
+    if mid_refine:
+        extra_refinements = np.ceil(final_max_h/h_max)
+    else:
+        extra_refinements = 0
 
 
     # first refine to desired prefractal level
@@ -25,9 +28,12 @@ def build_snowflake(prefratal_level, h_max=math.inf, scale = 1, apex_angle = mat
             else:
                 j_even = False
 
+        # if we are refining the centre
+        dashed_refine = mid_refine and j_even
+
         (tri_edges, tri_nodes, tri_types, edges_nodes, 
         nodes_data) =  subdiv_all(tri_edges, tri_nodes, tri_types, edges_nodes, nodes_data,
-            apex_angle=apex_angle, increase_prefractal_level=True, dashed=j_even)
+            apex_angle=apex_angle, increase_prefractal_level=True, dashed=dashed_refine)
 
     # now refine to desired meshwidth, if not already achieved
     while get_h_max(tri_nodes,nodes_data) > h_max:
